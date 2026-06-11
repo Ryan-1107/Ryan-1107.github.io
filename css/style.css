@@ -1,0 +1,132 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background-color:#f5f7fa;
+    font-family:"Microsoft JhengHei",sans-serif;
+    color:#333;
+}
+
+/* 每個區塊 */
+
+section{
+    padding:80px 0;
+}
+
+/* 首頁 */
+
+.hero{
+    background:linear-gradient(to right,#4e73df,#36b9cc);
+    color:white;
+    text-align:center;
+    padding:100px 0;
+}
+
+/* 大頭照 */
+
+.profile-img{
+    width:220px;
+    height:220px;
+    object-fit:cover;
+    border-radius:50%;
+    border:6px solid white;
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
+    margin-bottom:20px;
+}
+
+/* 標題 */
+
+h1{
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+h2{
+    text-align:center;
+    font-weight:bold;
+    color:#4e73df;
+    margin-bottom:40px;
+}
+
+h3{
+    color:#4e73df;
+}
+
+h4{
+    color:#36b9cc;
+}
+
+/* 卡片 */
+
+.card{
+    border:none;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+/* 清單 */
+
+ul{
+    padding-left:20px;
+}
+
+li{
+    margin-bottom:10px;
+}
+
+/* 圖片 */
+
+img{
+    max-width:100%;
+}
+
+.shadow{
+    border-radius:15px;
+}
+
+/* 專案圖片 */
+
+#project img{
+    margin-bottom:20px;
+}
+
+/* 頁尾 */
+
+footer{
+    background:#4e73df;
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:50px;
+}
+
+/* 手機版 */
+
+@media(max-width:768px){
+
+    .hero{
+        padding:70px 0;
+    }
+
+    .profile-img{
+        width:160px;
+        height:160px;
+    }
+
+    h1{
+        font-size:2rem;
+    }
+
+    h2{
+        font-size:1.8rem;
+    }
+
+}
