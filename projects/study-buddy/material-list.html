@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>教材評分</title>
+
+        <link rel="stylesheet" href="common.css">
+    <style>
+/* material-list.html｜原本頁面 CSS，完整保留 */
+
+* {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            font-family:
+                "Noto Sans TC",
+                "Microsoft JhengHei",
+                sans-serif;
+
+            background-color: #f5f7f6;
+
+            color: #333;
+        }
+
+        /* ==========================
+           主要內容
+        ========================== */
+
+        .container {
+            width: 94%;
+            max-width: 1100px;
+
+            margin: 40px auto;
+        }
+
+
+        /* ==========================
+           返回按鈕
+        ========================== */
+
+        .back-btn {
+            display: inline-block;
+
+            margin-bottom: 20px;
+
+            color: #607d6d;
+
+            text-decoration: none;
+
+            font-size: 15px;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+
+
+        /* ==========================
+           標題
+        ========================== */
+
+        .page-title {
+            margin: 0;
+
+            color: #40544b;
+
+            font-size: 30px;
+        }
+
+
+        /* 日期 */
+
+        .date {
+            margin-top: 8px;
+
+            margin-bottom: 35px;
+
+            color: #7c9889;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+
+        /* ==========================
+           科目區塊
+        ========================== */
+
+        .subject-section {
+            margin-bottom: 35px;
+        }
+
+
+        /* 科目標題 */
+
+        .subject-title {
+            margin-bottom: 15px;
+
+            padding-left: 12px;
+
+            border-left: 5px solid #607d6d;
+
+            color: #40544b;
+
+            font-size: 22px;
+
+            font-weight: bold;
+        }
+
+
+        /* ==========================
+           表格
+        ========================== */
+
+        .table-wrapper {
+            overflow-x: auto;
+
+            background-color: white;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0, 0, 0, 0.06);
+        }
+
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 600px;
+        }
+
+
+        /* 表頭 */
+
+        th {
+            padding: 15px;
+
+            background-color: #eef3f0;
+
+            color: #40544b;
+
+            text-align: left;
+
+            font-size: 14px;
+        }
+
+
+        /* 表格內容 */
+
+        td {
+            padding: 15px;
+
+            border-bottom:
+                1px solid #edf0ee;
+
+            font-size: 14px;
+        }
+
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+
+        /* ==========================
+           大學伴姓名
+        ========================== */
+
+        .student-name {
+            color: #40544b;
+
+            font-weight: bold;
+        }
+
+
+        /* ==========================
+           下拉選單
+        ========================== */
+
+        select {
+            padding: 9px 12px;
+
+            border:
+                1px solid #d5dcd8;
+
+            border-radius: 8px;
+
+            background-color: #fafcfb;
+
+            color: #333;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+            outline: none;
+        }
+
+
+        select:focus {
+            border-color: #7c9889;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(124, 152, 137, 0.12);
+        }
+
+
+        /* ==========================
+           儲存區域
+        ========================== */
+
+        .save-area {
+            margin-top: 30px;
+
+            text-align: right;
+        }
+
+
+        /* 儲存按鈕 */
+
+        .save-btn {
+            padding: 13px 30px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background-color: #607d6d;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .save-btn:hover {
+            background-color: #4f695b;
+        }
+
+
+        .save-btn:active {
+            transform: scale(0.98);
+        }
+
+
+        /* ==========================
+           手機版
+        ========================== */
+
+        @media (max-width: 700px) {
+
+            .container {
+                width: 92%;
+
+                margin: 30px auto;
+            }
+
+            .page-title {
+                font-size: 25px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body><aside class="portfolio-demo-note"><a href="../../projects.html#study-buddy">← 回作品集</a> <a href="index.html">行事曆</a> <a href="attendance.html">出缺席</a> <a href="material.html">教材管理</a><p>課程作品展示 · 教材評分介面原型：日期由網址參數帶入；儲存僅顯示提示，重新整理後不保留選取結果。</p></aside>
+
+
+    <div class="container">
+
+
+        <!-- ==========================
+             返回
+        ========================== -->
+
+        <a href="material.html"
+           class="back-btn">
+
+            ← 返回教材管理
+
+        </a>
+
+
+        <!-- ==========================
+             標題
+        ========================== -->
+
+        <h1 class="page-title">
+
+            教材評分
+
+        </h1>
+
+
+        <!-- ==========================
+             日期
+        ========================== -->
+
+        <div class="date"
+             id="lessonDate">
+
+            載入中...
+
+        </div>
+
+
+
+        <!-- =====================================================
+             國文
+        ====================================================== -->
+
+        <div class="subject-section">
+
+
+            <div class="subject-title">
+
+                國文
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                大學伴
+                            </th>
+
+                            <th>
+                                繳交狀態
+                            </th>
+
+                            <th>
+                                教材等第
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        <!-- 王小明 -->
+
+                        <tr>
+
+                            <td class="student-name">
+
+                                王小明
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="on_time">
+                                        準時
+                                    </option>
+
+                                    <option value="late">
+                                        遲交
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="A">
+                                        A
+                                    </option>
+
+                                    <option value="B">
+                                        B
+                                    </option>
+
+                                    <option value="C">
+                                        C
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- 陳小華 -->
+
+                        <tr>
+
+                            <td class="student-name">
+
+                                陳小華
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="on_time">
+                                        準時
+                                    </option>
+
+                                    <option value="late">
+                                        遲交
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="A">
+                                        A
+                                    </option>
+
+                                    <option value="B">
+                                        B
+                                    </option>
+
+                                    <option value="C">
+                                        C
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- 林小美 -->
+
+                        <tr>
+
+                            <td class="student-name">
+
+                                林小美
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="on_time">
+                                        準時
+                                    </option>
+
+                                    <option value="late">
+                                        遲交
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="A">
+                                        A
+                                    </option>
+
+                                    <option value="B">
+                                        B
+                                    </option>
+
+                                    <option value="C">
+                                        C
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             英文
+        ====================================================== -->
+
+        <div class="subject-section">
+
+
+            <div class="subject-title">
+
+                英文
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                大學伴
+                            </th>
+
+                            <th>
+                                繳交狀態
+                            </th>
+
+                            <th>
+                                教材等第
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        <!-- 王小明 -->
+
+                        <tr>
+
+                            <td class="student-name">
+
+                                王小明
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="on_time">
+                                        準時
+                                    </option>
+
+                                    <option value="late">
+                                        遲交
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="A">
+                                        A
+                                    </option>
+
+                                    <option value="B">
+                                        B
+                                    </option>
+
+                                    <option value="C">
+                                        C
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- 陳小華 -->
+
+                        <tr>
+
+                            <td class="student-name">
+
+                                陳小華
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="on_time">
+                                        準時
+                                    </option>
+
+                                    <option value="late">
+                                        遲交
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="A">
+                                        A
+                                    </option>
+
+                                    <option value="B">
+                                        B
+                                    </option>
+
+                                    <option value="C">
+                                        C
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- 林小美 -->
+
+                        <tr>
+
+                            <td class="student-name">
+
+                                林小美
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="on_time">
+                                        準時
+                                    </option>
+
+                                    <option value="late">
+                                        遲交
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="A">
+                                        A
+                                    </option>
+
+                                    <option value="B">
+                                        B
+                                    </option>
+
+                                    <option value="C">
+                                        C
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             數學
+        ====================================================== -->
+
+        <div class="subject-section">
+
+
+            <div class="subject-title">
+
+                數學
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                大學伴
+                            </th>
+
+                            <th>
+                                繳交狀態
+                            </th>
+
+                            <th>
+                                教材等第
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        <!-- 王小明 -->
+
+                        <tr>
+
+                            <td class="student-name">
+
+                                王小明
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="on_time">
+                                        準時
+                                    </option>
+
+                                    <option value="late">
+                                        遲交
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="A">
+                                        A
+                                    </option>
+
+                                    <option value="B">
+                                        B
+                                    </option>
+
+                                    <option value="C">
+                                        C
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- 陳小華 -->
+
+                        <tr>
+
+                            <td class="student-name">
+
+                                陳小華
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="on_time">
+                                        準時
+                                    </option>
+
+                                    <option value="late">
+                                        遲交
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="A">
+                                        A
+                                    </option>
+
+                                    <option value="B">
+                                        B
+                                    </option>
+
+                                    <option value="C">
+                                        C
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- 林小美 -->
+
+                        <tr>
+
+                            <td class="student-name">
+
+                                林小美
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="on_time">
+                                        準時
+                                    </option>
+
+                                    <option value="late">
+                                        遲交
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+
+                            <td>
+
+                                <select>
+
+                                    <option value="A">
+                                        A
+                                    </option>
+
+                                    <option value="B">
+                                        B
+                                    </option>
+
+                                    <option value="C">
+                                        C
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==========================
+             儲存按鈕
+        ========================== -->
+
+        <div class="save-area">
+
+            <button
+                class="save-btn"
+                onclick="saveData()">
+
+                儲存評分
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+
+
+        /* ==========================
+           取得網址中的日期
+        ========================== */
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const date =
+            params.get("date");
+
+
+        if (date) {
+
+            document.getElementById(
+                "lessonDate"
+            ).textContent =
+                date.replaceAll("-", "/");
+
+        } else {
+
+            document.getElementById(
+                "lessonDate"
+            ).textContent =
+                "未指定日期";
+
+        }
+
+
+
+        /* ==========================
+           儲存評分
+        ========================== */
+
+        function saveData() {
+
+            alert(
+                "教材繳交狀態與等第已儲存！"
+            );
+
+            /*
+                之後接後端 API 時，
+                可以將以下資料送到資料庫：
+
+                - 大學伴 ID
+                - 上課日期
+                - 科目
+                - 繳交狀態
+                - 教材等第
+            */
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

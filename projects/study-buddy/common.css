@@ -1,0 +1,175 @@
+/* 大學伴系統｜共用配色
+   只統一顏色，不改任何頁面的排版尺寸與位置 */
+
+:root {
+    --system-bg: #f4f7f5;
+    --system-card: #ffffff;
+    --system-primary: #557a6a;
+    --system-primary-dark: #3f6254;
+    --system-primary-light: #e9f1ed;
+    --system-text: #333333;
+    --system-muted: #718078;
+    --system-border: #e2e9e5;
+    --system-table-head: #edf3f0;
+}
+
+html, body {
+    background-color: var(--system-bg);
+    color: var(--system-text);
+}
+
+.container,
+.section-card,
+.class-info,
+.course-info,
+.stat-card,
+.lesson-card,
+.table-wrapper,
+.table-scroll,
+table,
+.semester-table,
+.modal-content,
+.box,
+.header,
+.link-box {
+    background-color: var(--system-card);
+}
+
+h1, h2, .page-title, .class-name, .stat-value,
+.lesson-date, .subject-title, .logo, .title,
+.page-header h1, .header-section h1,
+.university-name, .elementary-name, .student-name {
+    color: var(--system-primary-dark);
+}
+
+.page-description, .student-info, .member-count,
+.stat-title, .material-count, .university-id {
+    color: var(--system-muted);
+}
+
+th, .semester-table th {
+    background-color: var(--system-table-head);
+    color: var(--system-primary-dark);
+}
+
+td {
+    color: var(--system-text);
+    border-color: var(--system-border);
+}
+
+tbody tr:hover, .semester-table tbody tr:hover {
+    background-color: #f7faf8;
+}
+
+.btn-primary, .add, .save-btn, .btn-submit, .view-btn, .close {
+    background-color: var(--system-primary);
+    color: #fff;
+}
+
+.btn-primary:hover, .add:hover, .save-btn:hover,
+.btn-submit:hover, .view-btn:hover, .close:hover {
+    background-color: var(--system-primary-dark);
+}
+
+select, input[type="text"], input[type="date"],
+input[type="time"], input[type="number"], textarea {
+    background-color: #fff;
+    border-color: var(--system-border);
+    color: var(--system-text);
+}
+
+select:focus, input:focus, textarea:focus {
+    border-color: #6f9b88;
+}
+
+.info-item {
+    background-color: var(--system-primary-light);
+    border-color: #dfeae4;
+}
+
+.back-btn {
+    color: var(--system-primary);
+}
+
+.sidebar {
+    background-color: #344d42;
+    color: #fff;
+}
+
+.sidebar li:hover, .sidebar li.active {
+    background-color: #3f6254;
+    color: #fff;
+}
+
+.week {
+    background-color: var(--system-table-head);
+    color: var(--system-primary-dark);
+}
+
+.day {
+    background-color: #fff;
+}
+
+.day.other {
+    background-color: #f7f9f8;
+    color: #a8b0ac;
+}
+
+.today .num {
+    background-color: var(--system-primary);
+    color: #fff;
+}
+
+.class {
+    background-color: #e8f3ec;
+    color: #3d7656;
+}
+
+.activity {
+    background-color: #f3e9e7;
+    color: #96554f;
+}
+
+.training {
+    background-color: #e8f0f5;
+    color: #486d88;
+}
+
+.meet {
+    background-color: #f4efdf;
+    color: #8a6c36;
+}
+
+.present, .status-ok, .status.done {
+    background-color: #e8f3ec;
+    color: #4f8a68;
+}
+
+.absent {
+    background-color: #faecec;
+    color: #b85c5c;
+}
+
+.leave, .status.pending {
+    background-color: #fbf4e6;
+    color: #b88a45;
+}
+
+.status.future {
+    background-color: #f0f2f1;
+    color: #7e8983;
+}
+
+.lesson-number, .arrow, .date {
+    color: var(--system-primary);
+}
+
+.modal {
+    background-color: rgba(34, 48, 41, 0.48);
+}
+
+.legend {
+    background-color: #fff;
+}
+
+.portfolio-demo-note{padding:12px 20px;background:#243e35;color:#f7f6f0;font:12px/1.8 "Microsoft JhengHei",sans-serif}.portfolio-demo-note a{color:#d4e5bc;margin-right:20px}.portfolio-demo-note p{margin:6px 0 0}.portfolio-demo-note a:focus-visible{outline:2px solid white}

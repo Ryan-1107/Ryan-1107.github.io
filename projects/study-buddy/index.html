@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大學伴系統｜行事曆</title>
+
+    <link rel="stylesheet" href="common.css">
+    <style>
+/* index.html｜原本頁面 CSS，完整保留 */
+
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:"Microsoft JhengHei",Arial;
+    background:#f5f7fa;
+    color:#333;
+}
+.container{
+    width:100%;
+    min-height:100vh;
+    background:white;
+}
+
+/* 上方 */
+.header{
+    height:65px;
+    display:flex;
+    align-items:center;
+    padding:0 25px;
+    border-bottom:1px solid #ddd;
+}
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    color:#1a73e8;
+    margin-right:30px;
+}
+button,select{
+    padding:8px 14px;
+    border:1px solid #ddd;
+    background:white;
+    border-radius:6px;
+    cursor:pointer;
+}
+button:hover{background:#f1f3f4}
+.title{
+    font-size:21px;
+    margin-left:20px;
+}
+.add{
+    margin-left:auto;
+    background:#1a73e8;
+    color:white;
+    border:none;
+}
+
+/* 月曆 */
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    border-left:1px solid #ddd;
+}
+.week{
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-right:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    font-weight:bold;
+}
+.day{
+    height:125px;
+    padding:6px;
+    border-right:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    overflow:hidden;
+}
+.day.other{background:#fafafa;color:#aaa}
+.num{
+    font-size:13px;
+    margin-bottom:5px;
+}
+.today .num{
+    background:#1a73e8;
+    color:white;
+    border-radius:50%;
+    width:25px;
+    height:25px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.event{
+    padding:4px 6px;
+    margin:3px 0;
+    border-radius:4px;
+    font-size:12px;
+    cursor:pointer;
+}
+.class{background:#e6f4ea;color:#137333}
+.activity{background:#fce8e6;color:#c5221f}
+.training{background:#e8f0fe;color:#174ea6}
+.meet{background:#fef7e0;color:#b06000}
+
+/* 圖例 */
+.legend{
+    padding:12px 20px;
+    display:flex;
+    gap:25px;
+    border-top:1px solid #ddd;
+}
+.legend span{
+    font-size:13px;
+}
+.dot{
+    display:inline-block;
+    width:10px;
+    height:10px;
+    border-radius:3px;
+    margin-right:5px;
+}
+.g{background:#34a853}
+.b{background:#4285f4}
+.r{background:#ea4335}
+.y{background:#fbbc04}
+
+/* 彈窗 */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#0006;
+    align-items:center;
+    justify-content:center;
+}
+.modal.show{display:flex}
+.box{
+    background:white;
+    width:380px;
+    padding:25px;
+    border-radius:10px;
+}
+.box h2{margin-top:0}
+.close{
+    width:100%;
+    background:#1a73e8;
+    color:white;
+    border:none;
+    margin-top:15px;
+}
+    </style>
+</head>
+
+<body><aside class="portfolio-demo-note"><a href="../../projects.html#study-buddy">← 回作品集</a> <a href="index.html">行事曆</a> <a href="attendance.html">出缺席</a> <a href="material.html">教材管理</a><p>課程作品展示 · 行事曆前端原型：可切換月份及查看活動；活動依日期數字重複展示。新增活動與週／日切換尚未完成。</p></aside>
+
+<div class="container">
+
+    <!-- 上方 -->
+    <div class="header">
+
+        <div class="logo">大學伴系統</div>
+
+        <button onclick="today()">今天</button>
+        <button onclick="prev()">‹</button>
+        <button onclick="next()">›</button>
+
+        <div class="title" id="month"></div>
+
+        <select>
+            <option>月</option>
+            <option>週</option>
+            <option>日</option>
+        </select>
+
+        <button class="add" onclick="addEvent()">＋ 新增活動</button>
+
+    </div>
+
+
+    <!-- 月曆 -->
+    <div class="calendar" id="calendar">
+
+        <div class="week">日</div>
+        <div class="week">一</div>
+        <div class="week">二</div>
+        <div class="week">三</div>
+        <div class="week">四</div>
+        <div class="week">五</div>
+        <div class="week">六</div>
+
+    </div>
+
+
+    <!-- 圖例 -->
+    <div class="legend">
+        <span><i class="dot g"></i>上課時間</span>
+        <span><i class="dot b"></i>研習活動</span>
+        <span><i class="dot r"></i>活動時間</span>
+        <span><i class="dot y"></i>相見歡</span>
+    </div>
+
+</div>
+
+
+<!-- 活動詳細資料 -->
+<div class="modal" id="modal">
+
+    <div class="box">
+
+        <h2 id="mTitle">活動資訊</h2>
+
+        <p id="mContent"></p>
+
+        <button class="close" onclick="closeModal()">關閉</button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let date = new Date();
+
+const events = {
+
+    1:[
+        ["14:00-16:00","上課｜六年級 A 班","class"]
+    ],
+
+    2:[
+        ["10:00-12:00","研習｜教學技巧研習","training"]
+    ],
+
+    7:[
+        ["09:30-12:00","相見歡｜小學伴活動","meet"]
+    ],
+
+    13:[
+        ["13:30-16:30","研習｜班級經營研習","training"]
+    ],
+
+    16:[
+        ["09:00-12:00","活動｜團隊合作活動","activity"]
+    ],
+
+    20:[
+        ["14:00-16:00","上課｜六年級 A 班","class"]
+    ],
+
+    22:[
+        ["09:00-12:00","研習｜數位教學研習","training"]
+    ],
+
+    27:[
+        ["14:00-16:00","相見歡｜小學伴活動","meet"]
+    ],
+
+    30:[
+        ["09:00-12:00","活動｜團隊活動","activity"]
+    ]
+
+};
+
+
+/* 產生月曆 */
+
+function render(){
+
+    let calendar=document.getElementById("calendar");
+
+    calendar.innerHTML=`
+        <div class="week">日</div>
+        <div class="week">一</div>
+        <div class="week">二</div>
+        <div class="week">三</div>
+        <div class="week">四</div>
+        <div class="week">五</div>
+        <div class="week">六</div>
+    `;
+
+    let year=date.getFullYear();
+    let month=date.getMonth();
+
+    document.getElementById("month").innerText=
+        `${year}年${month+1}月`;
+
+    let first=new Date(year,month,1).getDay();
+    let days=new Date(year,month+1,0).getDate();
+
+    for(let i=0;i<first;i++){
+
+        calendar.innerHTML+=`<div class="day other"></div>`;
+
+    }
+
+    for(let d=1;d<=days;d++){
+
+        let todayClass="";
+
+        let now=new Date();
+
+        if(
+            d===now.getDate() &&
+            month===now.getMonth() &&
+            year===now.getFullYear()
+        ){
+            todayClass="today";
+        }
+
+        let html=`
+            <div class="day ${todayClass}">
+                <div class="num">${d}</div>
+        `;
+
+        if(events[d]){
+
+            events[d].forEach(e=>{
+
+                html+=`
+                    <div class="event ${e[2]}"
+                         onclick="showEvent('${e[1]}','${e[0]}')">
+                        ${e[0]} ${e[1]}
+                    </div>
+                `;
+
+            });
+
+        }
+
+        html+=`</div>`;
+
+        calendar.innerHTML+=html;
+
+    }
+
+}
+
+
+/* 上一個月 */
+
+function prev(){
+
+    date.setMonth(date.getMonth()-1);
+    render();
+
+}
+
+
+/* 下一個月 */
+
+function next(){
+
+    date.setMonth(date.getMonth()+1);
+    render();
+
+}
+
+
+/* 今天 */
+
+function today(){
+
+    date=new Date();
+    render();
+
+}
+
+
+/* 新增活動 */
+
+function addEvent(){
+
+    alert("開啟新增活動功能");
+
+}
+
+
+/* 活動詳細 */
+
+function showEvent(title,time){
+
+    document.getElementById("mTitle").innerText=title;
+
+    document.getElementById("mContent").innerText=
+        "活動時間：" + time;
+
+    document.getElementById("modal").classList.add("show");
+
+}
+
+
+/* 關閉 */
+
+function closeModal(){
+
+    document.getElementById("modal").classList.remove("show");
+
+}
+
+
+render();
+
+</script>
+
+</body>
+</html>

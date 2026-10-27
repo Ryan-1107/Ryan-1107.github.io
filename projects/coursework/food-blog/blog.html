@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="utf-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>日光美食部落 | 法式甜點特搜</title>
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* =========================================
+       🎨 1. CSS 變數與全域設定 (CSS Variables)
+       ========================================= */
+        :root {
+            /* ✅ 使用變數管理全站色彩，未來若要更改品牌主題色，只需修改這裡即可 */
+            --brand-rose: #d695a4;
+            /* 品牌主色：法式玫瑰粉 */
+            --brand-rose-dark: #b87483;
+            /* 品牌深色：用於重點文字與懸停狀態 */
+            --bg-cream: #fdfbf9;
+            /* 網頁背景色：溫暖的奶油白 */
+            --text-main: #4a3b32;
+            /* 主要文字色：巧克力深棕色，比純黑色閱讀起來更柔和 */
+            --text-muted: #8c7b70;
+            /* 次要文字色：淺棕色，用於日期、備註等 */
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            /* 套用奶油白背景 */
+            /* ✅ 設定系統原生字體疊代，確保在 Mac, Windows, iOS 都有最滑順的字體渲染效果 */
+            font-family: "微軟正黑體", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            color: var(--text-main);
+        }
+
+        /* =========================================
+       🧭 2. 導覽列 (Navbar) 自訂樣式
+       ========================================= */
+        .navbar {
+            background-color: #ffffff !important;
+            /* 加上 !important 強制覆蓋 Bootstrap 預設背景色 */
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
+            /* ✅ 加上極淡的底部陰影，產生浮動立體感 */
+            padding: 12px 0;
+            /* 增加上下內距，讓導覽列看起來不會太擁擠 */
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            /* 品牌名稱加粗 */
+            color: var(--brand-rose-dark) !important;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            /* 增加字元間距，提升質感 */
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: var(--text-muted) !important;
+            transition: color 0.3s ease;
+            /* ✅ 讓顏色變化的過程有 0.3 秒的平滑漸變效果 */
+        }
+
+        .nav-link:hover {
+            color: var(--brand-rose-dark) !important;
+            /* 滑鼠懸停時變成深玫瑰色 */
+        }
+
+        /* =========================================
+       🖼️ 3. 頁首橫幅 (Header / Hero)
+       ========================================= */
+        header {
+            /* ✅ 使用 CSS 漸層背景：從左上(135deg)到右下，極淡玫瑰白到淺粉色的漸層 */
+            background: linear-gradient(135deg, #fdf6f7 0%, #f6e8ea 100%);
+            border-bottom: 1px solid #f0e0e3;
+            /* 底部細線，與下方內容區隔開 */
+            padding: 80px 0 60px;
+            /* 上方空 80px，下方空 60px 的內距 */
+            text-align: center;
+            /* 內容水平置中 */
+            margin-bottom: 50px;
+            /* ✅ 與下方的文章區塊推開 50px 的外距 */
+        }
+
+        header h1 {
+            font-weight: 800;
+            color: var(--brand-rose-dark);
+            letter-spacing: 3px;
+            /* 標題字距拉大，更有雜誌封面感 */
+            margin-bottom: 20px;
+        }
+
+        header .lead {
+            color: var(--text-main);
+            font-size: 1.15rem;
+            opacity: 0.85;
+            /* ✅ 讓副標題文字稍微透明一點，產生視覺層次 */
+        }
+
+        /* =========================================
+       📝 4. 文章內容區 (Article Typography)
+       ========================================= */
+        .article-title {
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+
+        .article-meta {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            border-bottom: 2px solid #f0e0e3;
+            /* ✅ 日期與作者下方加入裝飾分隔線 */
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .article-meta a {
+            color: var(--brand-rose-dark);
+            text-decoration: none;
+            /* 移除超連結預設底線 */
+            font-weight: bold;
+        }
+
+        .article-subtitle {
+            color: var(--brand-rose-dark);
+            font-weight: 800;
+            margin-top: 30px;
+            /* 與上方圖片保持距離 */
+            margin-bottom: 15px;
+        }
+
+        /* ✅ 圖片美化與互動效果 */
+        .article-img {
+            border-radius: 12px;
+            /* 圖片圓角 */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            /* 圖片柔和的立體陰影 */
+            width: 100%;
+            /* 確保圖片寬度撐滿父容器 */
+            height: auto;
+            /* 高度等比例縮放 */
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            /* ✅ 為 hover 的放大效果設定 0.3 秒動畫過渡 */
+        }
+
+        .article-img:hover {
+            transform: translateY(-3px);
+            /* ✅ 滑鼠游標移過時，圖片會微微向上浮起 3px */
+        }
+
+        .article-text {
+            font-size: 1.1rem;
+            /* 稍微放大文章字體 */
+            line-height: 1.9;
+            /* ✅ 拉大行高 (1.9倍)，長篇文章閱讀起來眼睛不費力 */
+            color: #5a4b42;
+            margin-bottom: 50px;
+            /* 每個段落底部留白 */
+        }
+
+        /* 自訂虛線分隔線 (用來取代生硬的原生 <hr>) */
+        .article-divider {
+            border-top: 1px dashed #e2d5d8;
+            margin: 40px 0;
+        }
+
+        /* =========================================
+       🗂️ 5. 側邊欄卡片 (Sidebar Cards)
+       ========================================= */
+        .sidebar-card {
+            border: none;
+            /* ✅ 移除 Bootstrap 預設的 1px 灰色邊框 */
+            border-radius: 16px;
+            /* 卡片大圓角 */
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            /* 柔和的高級陰影，取代邊框 */
+            margin-bottom: 30px;
+        }
+
+        .sidebar-card .card-header {
+            background-color: transparent;
+            /* 移除卡片標題區塊預設灰底 */
+            border-bottom: 2px solid #fdf6f7;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--brand-rose-dark);
+            padding: 20px 20px 10px;
+        }
+
+        .sidebar-card .card-body {
+            padding: 20px;
+            line-height: 1.7;
+        }
+
+        /* 側邊欄連結清單美化 */
+        .sidebar-link {
+            color: var(--text-main);
+            text-decoration: none;
+            display: block;
+            /* ✅ 讓連結變成區塊元素，整行都可以點擊，增加點擊熱區 */
+            padding: 8px 0;
+            border-bottom: 1px solid #f9f5f6;
+            /* 選項之間的細分隔線 */
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-link:hover {
+            color: var(--brand-rose-dark);
+            padding-left: 5px;
+            /* ✅ 游標移過時，文字會向右推移 5px，產生互動微動畫 */
+        }
+
+        /* =========================================
+       🔘 6. 互動按鈕與頁尾 (Buttons & Footer)
+       ========================================= */
+        .btn-custom {
+            background-color: var(--brand-rose);
+            color: white;
+            font-weight: bold;
+            border-radius: 30px;
+            /* ✅ 數值設很大，變成完美的膠囊形狀按鈕 */
+            padding: 10px 30px;
+            /* 左右內距拉大，讓按鈕看起來更修長優雅 */
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: var(--brand-rose-dark);
+            color: white;
+            transform: translateY(-2px);
+            /* 懸停時按鈕向上浮起 */
+            box-shadow: 0 4px 12px rgba(214, 149, 164, 0.4);
+            /* ✅ 發出與按鈕同色系的光暈陰影 */
+        }
+
+        footer {
+            background-color: #4a3b32;
+            /* 深色頁尾背景 */
+            color: #e2d5d8;
+            padding: 40px 0;
+            margin-top: 60px;
+            /* 與上方內容推開距離 */
+        }
+
+        footer a {
+            color: #fdf6f7;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+<style>.course-demo-note{position:relative;z-index:1050;background:#243e35;color:#f7f6f0;padding:14px 24px;font:12px/1.8 "Microsoft JhengHei",sans-serif}.course-demo-note a{color:#d5e7b7;margin-right:24px}.course-demo-note strong{font-weight:500}.course-demo-note p{margin:5px 0 0}.course-demo-note a:focus-visible{outline:2px solid white}</style></head>
+
+<body><aside class="course-demo-note"><a href="../../../projects.html#course-food-blog">← 回作品集</a><strong>美食部落格版型｜課程練習展示</strong><p>展示文章、圖片、側欄與響應式導覽；新增文章與後台為示意連結。</p></aside>
+
+    
+    
+    <nav class="navbar navbar-expand-md sticky-top">
+        
+        <div class="container-fluid px-md-5">
+
+            
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                
+                
+                
+                <img src="images/food_icon.png" class="rounded-circle me-2" alt="Logo" width="35" height="35"
+                    style="object-fit: cover;">
+                日光美食部落
+            </a>
+
+            
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            
+            <div class="collapse navbar-collapse" id="navbar1">
+                
+                <ul class="navbar-nav me-auto ">
+                    
+                    <li class="nav-item"><a class="nav-link" href="#">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">新增文章</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">後台管理</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">站長日誌</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    
+    <header>
+        
+        <div class="container">
+            <h1>日光美食部落</h1>
+            
+            
+            <p class="lead mb-0">尋覓巷弄隱味、用鏡頭捕捉美好、以舌尖品味生活。日光美食部落，帶您展開一場視覺與味蕾的極致探索！</p>
+        </div>
+    </header>
+
+    
+    <div class="container">
+        
+        <div class="row">
+
+            
+            
+            
+            <div class="col-lg-8 pe-lg-5">
+
+                <h2 class="article-title">邂逅浪漫法式氛圍：揭開甜點珠寶盒的迷人秘密</h2>
+
+                <p class="article-meta">
+                    
+                    
+                    <i class="bi bi-pen me-1"></i> 2026年5月 by <a href="#">日光編輯部</a>
+                </p>
+
+                
+                
+                <img src="images/cake1.jpg" class="img-fluid article-img" alt="多層蛋糕">
+                <h4 class="article-subtitle">層次交織的味覺交響曲：歐培拉與千層</h4>
+                <p class="article-text">
+                    精緻堆疊的柔滑糕體，宛如藝術品般完美交融著細緻糖霜、濃郁黑巧克力與輕盈的鮮奶油夾層。每一刀切下，都是視覺的驚豔；每一口品嚐，都能感受到甜而不膩的完美平衡，在舌尖留下百轉千迴的法式優雅。</p>
+
+                
+                <div class="article-divider"></div>
+
+                
+                <img src="images/cake2.jpg" class=" article-img" alt="法式小圓餅">
+                <h4 class="article-subtitle">烘焙坊的彩色寶石：法式馬卡龍 (Macaron)</h4>
+                <p class="article-text">
+                    以細緻的杏仁粉與嚴選蛋白霜精心烘焙，成就了外層薄脆、內裡濕潤綿密的極致口感。宛如調色盤般的夢幻馬卡龍，在入口即化的瞬間，綻放迷人的獨特香氣，每一枚都是融化味蕾的甜蜜法寶。</p>
+
+                <div class="article-divider"></div>
+
+                
+                <img src="images/cake3.jpg" class=" article-img" alt="水果塔">
+                <h4 class="article-subtitle">四季的豐收果園：璀璨時令水果塔</h4>
+                <p class="article-text">
+                    金黃酥脆的純手工塔皮，盛裝著如絲綢般滑順的頂級香草卡士達醬。頂端如珠寶般鑲滿了晶瑩剔透的時令鮮果——酸甜的仲夏莓果、清香的麝香葡萄與濃郁的愛文芒果。酸與甜的交織，完美定義了理想中的夢幻下午茶。</p>
+
+                
+                
+                
+                
+                
+                <div class="d-flex justify-content-between mt-5 mb-5 pb-4 border-bottom">
+                    <a class=" btn-custom" href="#"><i class="bi bi-chevron-left me-1"></i> 上一篇</a>
+                    <a class=" btn-custom" href="#">下一篇 <i class="bi bi-chevron-right ms-1"></i></a>
+                </div>
+            </div>
+
+            
+            
+            <div class="col-lg-4">
+
+                
+                
+                <div class=" sidebar-card">
+                    <div class="card-header"><i class="bi bi-house-heart me-2"></i>關於我們</div>
+                    <div class="">
+                        
+                        <p class=" mb-0">
+                            我們是一群對品味生活充滿熱情的探索者。穿梭於城市巷弄與異國街頭，為您特搜那些值得反覆回味的私房名單與絕美景點。無論是精緻甜點還是街頭小吃，這裡都有最真實的感動！</p>
+                    </div>
+                </div>
+
+                
+                <div class="card sidebar-card">
+                    
+                    <div class="card-header"><i class="bi bi-star-fill me-2 text-warning"></i>美食推薦</div>
+                    
+                    <div class="card-body p-0 px-3 pb-3">
+                        
+                        <ol class="list-unstyled mb-0 mt-2" style="counter-reset: my-counter;">
+                            <li><a class="sidebar-link" href="#">沾美西餐廳</a></li>
+                            <li><a class="sidebar-link" href="#">法國的秘密甜點</a></li>
+                            <li><a class="sidebar-link" href="#">神戶果實</a></li>
+                            <li><a class="sidebar-link" href="#">ATTS Coffee</a></li>
+                            <li><a class="sidebar-link" href="#">法朋甜點</a></li>
+                            <li><a class="sidebar-link" href="#">凱蒂小姐的甜點</a></li>
+                            <li><a class="sidebar-link" href="#">深夜甜點店</a></li>
+                            <li><a class="sidebar-link" href="#">望月樓</a></li>
+                            <li><a class="sidebar-link" href="#">新葡苑</a></li>
+                            <li><a class="sidebar-link" href="#">鼎泰豐</a></li>
+                        </ol>
+                    </div>
+                </div>
+
+                
+                <div class="card sidebar-card">
+                    <div class="card-header"><i class="bi bi-link-45deg me-2"></i>廣告連結</div>
+                    <div class=" p-0 px-3 pb-3">
+                        <ul class=" mb-0 mt-2">
+                            <li><a class="sidebar-link" href="#">廣告連結1</a></li>
+                            <li><a class="sidebar-link" href="#">廣告連結2</a></li>
+                            <li><a class="sidebar-link" href="#">廣告連結3</a></li>
+                            <li><a class="sidebar-link" href="#">廣告連結4</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    
+    <footer>
+        <div class="container">
+            
+            <div class="row align-items-center">
+                
+                
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 日光多媒體 &middot; <a href="#">隱私權政策</a> &middot; <a href="#">服務條款</a></p>
+                </div>
+                
+                <div class="col-md-6 text-md-end article-divider">
+                    
+                    
+                    <a href="#" class="btn btn-outline-light rounded-pill px-3"><i
+                            class="bi bi-arrow-up me-1"></i>Back to top</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

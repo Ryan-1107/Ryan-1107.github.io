@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head><title>攝影與旅遊調查表｜課程實作</title>
+    <meta charset="utf-8">
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <style>
+        /* =========================================
+       🎨 網頁全域背景設定
+       ========================================= */
+        body {
+            background-color: #f0f4f8;
+            /* 柔和的淺灰藍背景 */
+            font-family: "微軟正黑體", "Segoe UI", Arial, sans-serif;
+            padding-top: 40px;
+            padding-bottom: 60px;
+            color: #334155;
+        }
+
+        /* =========================================
+       📋 問卷卡片設計
+       ========================================= */
+        .survey-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            /* 高級柔和陰影 */
+            max-width: 650px;
+            /* 限制最大寬度，閱讀體驗最佳 */
+            margin: 0 auto;
+            padding: 40px;
+            border-top: 6px solid #0284c7;
+            /* 頂部深藍色視覺焦點 */
+        }
+    </style>
+<style>.course-demo-note{position:relative;z-index:1050;background:#243e35;color:#f7f6f0;padding:14px 24px;font:12px/1.8 "Microsoft JhengHei",sans-serif}.course-demo-note a{color:#d5e7b7;margin-right:24px}.course-demo-note strong{font-weight:500}.course-demo-note p{margin:5px 0 0}.course-demo-note a:focus-visible{outline:2px solid white}</style></head>
+
+<body><aside class="course-demo-note"><a href="../../../projects.html#course-survey">← 回作品集</a><strong>攝影與旅遊調查表｜課程練習展示</strong><p>展示欄位、必填驗證、單複選與重設；展示副本僅在本頁確認，不傳送至原作的 httpbin 測試服務。</p></aside>
+
+    <div class="container">
+        
+        <div class="survey-card">
+
+            
+            <div class="text-center mb-5">
+                <h2 class="fw-bold" style="color: #0284c7;">
+                    攝影與旅遊調查表
+                </h2>
+                <p class="text-muted">與我們分享您的快門日常與旅遊足跡</p>
+            </div>
+
+            <form name="form02" method="post" action="#">
+                
+
+                <div class="row g-3 mb-4">
+                    
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input class="form-control" id="user_name" name="user_name" type="text" placeholder="您的姓名"
+                                required autofocus>
+                            <label for="user_name">大名</label>
+                        </div>
+                    </div>
+
+                    
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input class="form-control" name="email" id="email" type="email"
+                                placeholder="sapporo_trip@example.com" required>
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="mt-3">
+                    性別：
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="g1" name="gender" type="radio" value="male" checked>
+                        <label class="form-check-label" for="g1">男</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="g2" name="gender" type="radio" value="female">
+                        <label class="form-check-label" for="g2">女</label>
+                    </div>
+                </div>
+
+                <hr>
+
+                
+                您喜歡的拍攝主題：
+                <div class="form-check">
+                    <input class="form-check-input" id="topic1" name="topic1" type="checkbox" value="natural">
+                    <label class="form-check-label" for="topic1">🌲 自然風光</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" id="topic2" name="topic2" type="checkbox" value="people">
+                    <label class="form-check-label" for="topic2">👩 人像攝影</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" id="topic3" name="topic3" type="checkbox" value="building">
+                    <label class="form-check-label" for="topic3">🏛️ 城市建築</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" id="topic4" name="topic4" type="checkbox" value="night">
+                    <label class="form-check-label" for="topic4">🌃 絕美夜景</label>
+                </div>
+
+                <hr>
+
+                
+                <label for="travel_country" class="form-label">您喜歡的旅遊國家：</label>
+                <select class="form-select" id="travel_country" name="travel_country">
+                    <option>日本</option>
+                    <option>美國</option>
+                    <option>紐西蘭</option>
+                    <option>泰國</option>
+                </select>
+
+                <hr>
+
+                
+                <label class="form-label" for="score">對本站的評分：</label>
+                <input class="form-range" id="score" name="score" type="range" value="5" min="1" max="5">
+                
+
+                <hr>
+
+                
+                <label for="comment">對本站的意見:</label>
+                <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
+
+                
+                <div class="row">
+                    <div class="col-12 col-sm-6"><button type="submit" class="btn btn-primary mt-3 w-100">填完送出</button></div>
+                    <div class="col-12 col-sm-6"><button type="reset" class="btn btn-primary mt-3 w-100">清除重填</button></div>
+                </div>
+
+            <p id="demo-submit-status" role="status"></p></form>
+        </div> 
+    </div> 
+
+</body>
+
+</html><script>document.forms.form02.addEventListener('submit',function(event){event.preventDefault();document.getElementById('demo-submit-status').textContent='展示驗證完成，資料未傳送或儲存。';});document.forms.form02.addEventListener('reset',function(){document.getElementById('demo-submit-status').textContent='';});</script>

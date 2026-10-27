@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>教材管理</title>
+
+        <link rel="stylesheet" href="common.css">
+    <style>
+/* material.html｜原本頁面 CSS，完整保留 */
+
+* {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            background-color: #f5f7f6;
+            color: #333;
+        }
+
+        /* 頁面主要區域 */
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 60px auto;
+        }
+
+        /* 標題 */
+        .page-title {
+            margin-bottom: 8px;
+            color: #40544b;
+            font-size: 30px;
+        }
+
+        .page-description {
+            margin-bottom: 35px;
+            color: #777;
+        }
+
+        /* 課程列表 */
+        .lesson-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* 課程卡片 */
+        .lesson-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+
+            box-shadow:
+                0 5px 18px rgba(0, 0, 0, 0.06);
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            border: 1px solid #edf0ee;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.1);
+
+            border-color: #b8c8bf;
+        }
+
+        /* 次數 */
+        .lesson-number {
+            color: #7c9889;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        /* 日期 */
+        .lesson-date {
+            color: #40544b;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* 教材數量 */
+        .material-count {
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* 進入箭頭 */
+        .arrow {
+            float: right;
+            font-size: 22px;
+            color: #7c9889;
+        }
+
+        /* 手機版 */
+        @media (max-width: 700px) {
+
+            .lesson-list {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                margin: 30px auto;
+            }
+        }
+    </style>
+</head>
+
+<body><aside class="portfolio-demo-note"><a href="../../projects.html#study-buddy">← 回作品集</a> <a href="index.html">行事曆</a> <a href="attendance.html">出缺席</a> <a href="material.html">教材管理</a><p>課程作品展示 · 教材管理介面原型：課程與教材數量為程式內範例，尚未接入上傳與資料庫。</p></aside>
+
+    <div class="container">
+
+        <h1 class="page-title">
+            教材管理
+        </h1>
+
+        <p class="page-description">
+            請選擇上課日期，查看當日大學伴上傳的教材。
+        </p>
+
+
+        <div class="lesson-list">
+
+            <!-- 第 1 次 -->
+            <div class="lesson-card"
+                 onclick="openMaterial('2026-09-01')">
+
+                <div class="lesson-number">
+                    第 1 次上課
+                </div>
+
+                <div class="lesson-date">
+                    2026/09/01
+                </div>
+
+                <div class="material-count">
+                    已上傳 8 份教材
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <!-- 第 2 次 -->
+            <div class="lesson-card"
+                 onclick="openMaterial('2026-09-08')">
+
+                <div class="lesson-number">
+                    第 2 次上課
+                </div>
+
+                <div class="lesson-date">
+                    2026/09/08
+                </div>
+
+                <div class="material-count">
+                    已上傳 7 份教材
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <!-- 第 3 次 -->
+            <div class="lesson-card"
+                 onclick="openMaterial('2026-09-15')">
+
+                <div class="lesson-number">
+                    第 3 次上課
+                </div>
+
+                <div class="lesson-date">
+                    2026/09/15
+                </div>
+
+                <div class="material-count">
+                    已上傳 9 份教材
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <!-- 第 4 次 -->
+            <div class="lesson-card"
+                 onclick="openMaterial('2026-09-22')">
+
+                <div class="lesson-number">
+                    第 4 次上課
+                </div>
+
+                <div class="lesson-date">
+                    2026/09/22
+                </div>
+
+                <div class="material-count">
+                    已上傳 6 份教材
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <!-- 第 5 次 -->
+            <div class="lesson-card"
+                 onclick="openMaterial('2026-09-29')">
+
+                <div class="lesson-number">
+                    第 5 次上課
+                </div>
+
+                <div class="lesson-date">
+                    2026/09/29
+                </div>
+
+                <div class="material-count">
+                    已上傳 8 份教材
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <!-- 第 6 次 -->
+            <div class="lesson-card"
+                 onclick="openMaterial('2026-10-06')">
+
+                <div class="lesson-number">
+                    第 6 次上課
+                </div>
+
+                <div class="lesson-date">
+                    2026/10/06
+                </div>
+
+                <div class="material-count">
+                    已上傳 7 份教材
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <!-- 第 7 次 -->
+            <div class="lesson-card"
+                 onclick="openMaterial('2026-10-13')">
+
+                <div class="lesson-number">
+                    第 7 次上課
+                </div>
+
+                <div class="lesson-date">
+                    2026/10/13
+                </div>
+
+                <div class="material-count">
+                    已上傳 8 份教材
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <!-- 第 8 次 -->
+            <div class="lesson-card"
+                 onclick="openMaterial('2026-10-20')">
+
+                <div class="lesson-number">
+                    第 8 次上課
+                </div>
+
+                <div class="lesson-date">
+                    2026/10/20
+                </div>
+
+                <div class="material-count">
+                    已上傳 5 份教材
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <!-- 第 9 次 -->
+            <div class="lesson-card"
+                 onclick="openMaterial('2026-10-27')">
+
+                <div class="lesson-number">
+                    第 9 次上課
+                </div>
+
+                <div class="lesson-date">
+                    2026/10/27
+                </div>
+
+                <div class="material-count">
+                    已上傳 9 份教材
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <!-- 第 10 次 -->
+            <div class="lesson-card"
+                 onclick="openMaterial('2026-11-03')">
+
+                <div class="lesson-number">
+                    第 10 次上課
+                </div>
+
+                <div class="lesson-date">
+                    2026/11/03
+                </div>
+
+                <div class="material-count">
+                    已上傳 8 份教材
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function openMaterial(date) {
+
+            window.location.href =
+                "material-list.html?date=" + date;
+
+        }
+
+    </script>
+
+</body>
+
+</html>

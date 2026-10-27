@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>出缺席紀錄</title>
+
+
+        <link rel="stylesheet" href="common.css">
+    <style>
+/* attendance-detail.html｜原本頁面 CSS，完整保留 */
+
+* {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                "Noto Sans TC",
+                "Microsoft JhengHei",
+                sans-serif;
+
+            background-color: #f5f7f6;
+
+            color: #333;
+        }
+
+
+        .container {
+
+            width: 94%;
+
+            max-width: 1100px;
+
+            margin: 40px auto;
+        }
+
+
+        /* ==========================
+           返回
+        ========================== */
+
+        .back-btn {
+
+            display: inline-block;
+
+            margin-bottom: 20px;
+
+            color: #607d6d;
+
+            text-decoration: none;
+
+            font-size: 15px;
+        }
+
+
+        .back-btn:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* ==========================
+           標題
+        ========================== */
+
+        .page-title {
+
+            margin: 0;
+
+            color: #40544b;
+
+            font-size: 30px;
+        }
+
+
+        .student-info {
+
+            margin-top: 8px;
+
+            margin-bottom: 30px;
+
+            color: #777;
+
+            font-size: 15px;
+        }
+
+
+        /* ==========================
+           統計卡片
+        ========================== */
+
+        .statistics {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .stat-card {
+
+            padding: 20px;
+
+            background-color: white;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0, 0, 0, 0.06);
+        }
+
+
+        .stat-title {
+
+            margin-bottom: 8px;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        .stat-value {
+
+            color: #40544b;
+
+            font-size: 26px;
+
+            font-weight: bold;
+        }
+
+
+        /* ==========================
+           表格
+        ========================== */
+
+        .table-wrapper {
+
+            overflow-x: auto;
+
+            background-color: white;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0, 0, 0, 0.06);
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 700px;
+        }
+
+
+        th {
+
+            padding: 15px;
+
+            background-color: #eef3f0;
+
+            color: #40544b;
+
+            text-align: left;
+
+            font-size: 14px;
+        }
+
+
+        td {
+
+            padding: 15px;
+
+            border-bottom:
+                1px solid #edf0ee;
+
+            font-size: 14px;
+        }
+
+
+        tr:last-child td {
+
+            border-bottom: none;
+        }
+
+
+        /* ==========================
+           狀態
+        ========================== */
+
+        .status {
+
+            display: inline-block;
+
+            padding: 5px 12px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        .present {
+
+            background-color: #e4f1e9;
+
+            color: #47735a;
+        }
+
+
+        .absent {
+
+            background-color: #f7e5e5;
+
+            color: #a04d4d;
+        }
+
+
+        .leave {
+
+            background-color: #f5eedb;
+
+            color: #94763b;
+        }
+
+
+        /* ==========================
+           手機版
+        ========================== */
+
+        @media (max-width: 700px) {
+
+            .container {
+
+                width: 92%;
+
+                margin: 30px auto;
+            }
+
+
+            .page-title {
+
+                font-size: 25px;
+            }
+
+
+            .statistics {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body><aside class="portfolio-demo-note"><a href="../../projects.html#study-buddy">← 回作品集</a> <a href="index.html">行事曆</a> <a href="attendance.html">出缺席</a> <a href="material.html">教材管理</a><p>課程作品展示 · 出缺席明細原型：此頁為固定範例，未依網址學號查詢資料。</p></aside>
+
+
+<div class="container">
+
+
+    <!-- ==========================
+         返回
+    ========================== -->
+
+    <a
+        href="attendance.html"
+        class="back-btn">
+
+        ← 返回班級名單
+
+    </a>
+
+
+
+    <!-- ==========================
+         學生資訊
+    ========================== -->
+
+    <h1 class="page-title">
+
+        王小明
+
+    </h1>
+
+
+    <div class="student-info">
+
+        大學伴學號：U001
+       　
+        小學伴：林小華
+
+    </div>
+
+
+
+    <!-- ==========================
+         統計
+    ========================== -->
+
+    <div class="statistics">
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                出席
+            </div>
+
+            <div class="stat-value">
+                18 次
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                缺席
+            </div>
+
+            <div class="stat-value">
+                1 次
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                請假
+            </div>
+
+            <div class="stat-value">
+                1 次
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ==========================
+         整學期紀錄
+    ========================== -->
+
+    <div class="table-wrapper">
+
+
+        <table>
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        次數
+                    </th>
+
+                    <th>
+                        上課日期
+                    </th>
+
+                    <th>
+                        出勤狀態
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                <tr>
+
+                    <td>第 1 次</td>
+
+                    <td>2026/09/01</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 2 次</td>
+
+                    <td>2026/09/08</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 3 次</td>
+
+                    <td>2026/09/15</td>
+
+                    <td>
+
+                        <span class="status leave">
+                            請假
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 4 次</td>
+
+                    <td>2026/09/22</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 5 次</td>
+
+                    <td>2026/09/29</td>
+
+                    <td>
+
+                        <span class="status absent">
+                            缺席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 6 次</td>
+
+                    <td>2026/10/06</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 7 次</td>
+
+                    <td>2026/10/13</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 8 次</td>
+
+                    <td>2026/10/20</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 9 次</td>
+
+                    <td>2026/10/27</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 10 次</td>
+
+                    <td>2026/11/03</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 11 次</td>
+
+                    <td>2026/11/10</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 12 次</td>
+
+                    <td>2026/11/17</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 13 次</td>
+
+                    <td>2026/11/24</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 14 次</td>
+
+                    <td>2026/12/01</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 15 次</td>
+
+                    <td>2026/12/08</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 16 次</td>
+
+                    <td>2026/12/15</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 17 次</td>
+
+                    <td>2026/12/22</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 18 次</td>
+
+                    <td>2026/12/29</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 19 次</td>
+
+                    <td>2027/01/05</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>第 20 次</td>
+
+                    <td>2027/01/12</td>
+
+                    <td>
+
+                        <span class="status present">
+                            出席
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

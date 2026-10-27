@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>班級出缺席管理</title>
+
+
+        <link rel="stylesheet" href="common.css">
+    <style>
+/* attendance.html｜原本頁面 CSS，完整保留 */
+
+* {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                "Noto Sans TC",
+                "Microsoft JhengHei",
+                sans-serif;
+
+            background-color: #f5f7f6;
+
+            color: #333;
+        }
+
+
+        /* ==========================
+           主要內容
+        ========================== */
+
+        .container {
+
+            width: 94%;
+
+            max-width: 1100px;
+
+            margin: 40px auto;
+        }
+
+
+        /* ==========================
+           標題
+        ========================== */
+
+        .page-title {
+
+            margin: 0;
+
+            color: #40544b;
+
+            font-size: 30px;
+        }
+
+
+        .page-description {
+
+            margin-top: 8px;
+
+            margin-bottom: 30px;
+
+            color: #777;
+
+            font-size: 15px;
+        }
+
+
+        /* ==========================
+           班級資訊
+        ========================== */
+
+        .class-info {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+
+            padding: 20px 25px;
+
+            background-color: white;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0, 0, 0, 0.06);
+        }
+
+
+        .class-name {
+
+            color: #40544b;
+
+            font-size: 20px;
+
+            font-weight: bold;
+        }
+
+
+        .member-count {
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        /* ==========================
+           表格
+        ========================== */
+
+        .table-wrapper {
+
+            overflow-x: auto;
+
+            background-color: white;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0, 0, 0, 0.06);
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 750px;
+        }
+
+
+        th {
+
+            padding: 16px;
+
+            background-color: #eef3f0;
+
+            color: #40544b;
+
+            text-align: left;
+
+            font-size: 14px;
+        }
+
+
+        td {
+
+            padding: 16px;
+
+            border-bottom:
+                1px solid #edf0ee;
+
+            font-size: 14px;
+        }
+
+
+        tr:last-child td {
+
+            border-bottom: none;
+        }
+
+
+        /* ==========================
+           大學伴
+        ========================== */
+
+        .university-name {
+
+            color: #40544b;
+
+            font-weight: bold;
+        }
+
+
+        .university-id {
+
+            color: #999;
+
+            font-size: 13px;
+        }
+
+
+        /* ==========================
+           小學伴
+        ========================== */
+
+        .elementary-name {
+
+            color: #40544b;
+
+            font-weight: bold;
+        }
+
+
+        /* ==========================
+           查看按鈕
+        ========================== */
+
+        .view-btn {
+
+            display: inline-block;
+
+            padding: 9px 16px;
+
+            border-radius: 8px;
+
+            background-color: #607d6d;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+
+        .view-btn:hover {
+
+            background-color: #4f695b;
+        }
+
+
+        /* ==========================
+           手機版
+        ========================== */
+
+        @media (max-width: 700px) {
+
+            .container {
+
+                width: 92%;
+
+                margin: 30px auto;
+            }
+
+
+            .page-title {
+
+                font-size: 25px;
+            }
+
+
+            .class-info {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 8px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body><aside class="portfolio-demo-note"><a href="../../projects.html#study-buddy">← 回作品集</a> <a href="index.html">行事曆</a> <a href="attendance.html">出缺席</a> <a href="material.html">教材管理</a><p>課程作品展示 · 出缺席介面原型：名單與統計為程式內範例資料。各學號連結目前顯示同一份明細，未串接個別學生資料。</p></aside>
+
+
+<div class="container">
+
+
+    <!-- ==========================
+         標題
+    ========================== -->
+
+    <h1 class="page-title">
+
+        班級出缺席管理
+
+    </h1>
+
+
+    <p class="page-description">
+
+        查看本班大學伴的出缺席紀錄。
+
+    </p>
+
+
+
+    <!-- ==========================
+         班級資訊
+    ========================== -->
+
+    <div class="class-info">
+
+
+        <div class="class-name">
+
+            資管一甲
+
+        </div>
+
+
+        <div class="member-count">
+
+            共 6 位大學伴
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ==========================
+         大學伴列表
+    ========================== -->
+
+    <div class="table-wrapper">
+
+
+        <table>
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        大學伴姓名
+                    </th>
+
+                    <th>
+                        大學伴學號
+                    </th>
+
+                    <th>
+                        小學伴姓名
+                    </th>
+
+                    <th>
+                        本學期出席
+                    </th>
+
+                    <th>
+                        查看紀錄
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                <!-- 王小明 -->
+
+                <tr>
+
+                    <td class="university-name">
+
+                        王小明
+
+                    </td>
+
+
+                    <td class="university-id">
+
+                        U001
+
+                    </td>
+
+
+                    <td class="elementary-name">
+
+                        林小華
+
+                    </td>
+
+
+                    <td>
+
+                        18 / 20
+
+                    </td>
+
+
+                    <td>
+
+                        <a
+                            href="attendance-detail.html?id=U001"
+                            class="view-btn">
+
+                            查看紀錄
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+
+
+                <!-- 陳小美 -->
+
+                <tr>
+
+                    <td class="university-name">
+
+                        陳小美
+
+                    </td>
+
+
+                    <td class="university-id">
+
+                        U002
+
+                    </td>
+
+
+                    <td class="elementary-name">
+
+                        張小安
+
+                    </td>
+
+
+                    <td>
+
+                        19 / 20
+
+                    </td>
+
+
+                    <td>
+
+                        <a
+                            href="attendance-detail.html?id=U002"
+                            class="view-btn">
+
+                            查看紀錄
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+
+
+                <!-- 林大偉 -->
+
+                <tr>
+
+                    <td class="university-name">
+
+                        林大偉
+
+                    </td>
+
+
+                    <td class="university-id">
+
+                        U003
+
+                    </td>
+
+
+                    <td class="elementary-name">
+
+                        李小恩
+
+                    </td>
+
+
+                    <td>
+
+                        17 / 20
+
+                    </td>
+
+
+                    <td>
+
+                        <a
+                            href="attendance-detail.html?id=U003"
+                            class="view-btn">
+
+                            查看紀錄
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+
+
+                <!-- 張小婷 -->
+
+                <tr>
+
+                    <td class="university-name">
+
+                        張小婷
+
+                    </td>
+
+
+                    <td class="university-id">
+
+                        U004
+
+                    </td>
+
+
+                    <td class="elementary-name">
+
+                        王小宇
+
+                    </td>
+
+
+                    <td>
+
+                        20 / 20
+
+                    </td>
+
+
+                    <td>
+
+                        <a
+                            href="attendance-detail.html?id=U004"
+                            class="view-btn">
+
+                            查看紀錄
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+
+
+                <!-- 李大仁 -->
+
+                <tr>
+
+                    <td class="university-name">
+
+                        李大仁
+
+                    </td>
+
+
+                    <td class="university-id">
+
+                        U005
+
+                    </td>
+
+
+                    <td class="elementary-name">
+
+                        陳小杰
+
+                    </td>
+
+
+                    <td>
+
+                        18 / 20
+
+                    </td>
+
+
+                    <td>
+
+                        <a
+                            href="attendance-detail.html?id=U005"
+                            class="view-btn">
+
+                            查看紀錄
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+
+
+                <!-- 黃小華 -->
+
+                <tr>
+
+                    <td class="university-name">
+
+                        黃小華
+
+                    </td>
+
+
+                    <td class="university-id">
+
+                        U006
+
+                    </td>
+
+
+                    <td class="elementary-name">
+
+                        林小恩
+
+                    </td>
+
+
+                    <td>
+
+                        19 / 20
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="attendance-detail.html?id=U006"
+                            class="view-btn">
+
+                            查看紀錄
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
